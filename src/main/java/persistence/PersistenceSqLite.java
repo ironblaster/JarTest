@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,14 +23,26 @@ public class PersistenceSqLite {
 	public static void main (String[] args) throws SQLException, IOException {
 		
 		
-		leggi();
+		createDB("sqliteironblaster.db");
 		
 	
 	}
 	
 	
 	
-	private static void leggi() throws SQLException {
+	private static void createDB(String nameDb) throws SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:C:/temp/"+nameDb);
+		DatabaseMetaData meta = conn.getMetaData();
+		
+		System.out.println("the driver name is "+meta.getDriverName());
+		//new database has been created
+		conn.close();
+		 
+	}
+	
+	
+	
+	private static void read() throws SQLException {
 		
 		
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:C:/temp/sqliteironblaster.db");
@@ -62,7 +75,7 @@ public class PersistenceSqLite {
 	
 	
 	
-	private static void scrivi() throws SQLException {
+	private static void write() throws SQLException {
 		PojoTest prova = new PojoTest();
 		prova.setCognome("cognome");
 		prova.setNome("nome");

@@ -14,74 +14,67 @@ import pojos.Libro;
 public class PersistenceMongodb {
 	
 	
+	private static String url="mongodb://test:test@172.16.16.65:27017";
+	private static String db="PersistenceMongodb";
+	
+	static Morphia morphia;
+	static MongoClient client;
+	static Datastore datastore;
+	static {
+		morphia = new Morphia();
+		morphia.mapPackage("com.baeldung.morphia");
+		client = new MongoClient(new MongoClientURI(url));
+		datastore = morphia.createDatastore(client,db);
+	}
+	
+	
+	
+	
 	
 	
 	
 	public static void main (String[] args) {
 		
-		
+		try {
 		cancellatutti();
+		//salvaDocumento();
+		
+		
+		
+		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {client.close();}
+		
 
 	}
 	
 	
 	public static void cancellatutti() {
-		Morphia morphia = new Morphia();
-		morphia.mapPackage("com.baeldung.morphia");
-		MongoClient client = new MongoClient(new MongoClientURI("mongodb://"));
-		
-		
-		Datastore datastore = morphia.createDatastore(client, "servername");
 		
 		Query<Libro> libri = datastore.createQuery(Libro.class).field("titolo").contains("test");
-		
-		
-		
-		
 		datastore.delete(libri);
-		
-		
-		client.close();
 	}
+	
+	
 	
 	
 	
 	public static void PrendiDocumento() {
-		Morphia morphia = new Morphia();
-		morphia.mapPackage("com.baeldung.morphia");
-		MongoClient client = new MongoClient(new MongoClientURI("mongodb://"));
-		
-		
-		Datastore datastore = morphia.createDatastore(client, "servername");
-		
-		
 		List<Libro> libri = datastore.createQuery(Libro.class).field("titolo").contains("test").asList();
 				 
 		
-		
-				int i =0;
-				 
-			
-		
-		client.close();
+		int i =0;
 	}
 	
 	
+	
+	
 	public static void salvaDocumento() {
-		Morphia morphia = new Morphia();
-		morphia.mapPackage("com.baeldung.morphia");
 		
-		
-		MongoClient client = new MongoClient(new MongoClientURI("mongodb://"));
-		Datastore datastore = morphia.createDatastore(client, "servername");
-			
-		//datastore.ensureIndexes();
-		
-		
-
-		
-		
-		for (int i= 0; i<10000;i++) {
+		for (int i= 0; i<100000;i++) {
 		
 			Libro libro = new Libro();
 			libro.setIsbn("000"+i);
@@ -90,16 +83,10 @@ public class PersistenceMongodb {
 			libro.setCosto(12.50+i);
 			
 			datastore.save(libro);
-			
+			System.out.println(i);
 		}
 		
-
-		
-
-		
-		
-		
-			client.close();
+	
 	}
 	
 	
