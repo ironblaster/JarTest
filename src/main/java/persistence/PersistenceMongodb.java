@@ -1,21 +1,26 @@
 package persistence;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 
+import com.mongodb.InsertOptions;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-
 import pojos.Libro;
 
 public class PersistenceMongodb {
 	
 	
 	private static String url="mongodb://test:test@172.16.16.65:27017";
-	private static String db="PersistenceMongodb";
+	private static String db="provaMap";
 	
 	static Morphia morphia;
 	static MongoClient client;
@@ -36,11 +41,26 @@ public class PersistenceMongodb {
 	public static void main (String[] args) {
 		
 		try {
-		cancellatutti();
+		//cancellatutti();
 		//salvaDocumento();
 		
+		Map <String,String[]> mappa = new HashMap<>();
 		
 		
+		String[][] test= new String[3][1];
+	
+		String[] test2 = new String[2];
+		test2[0]="prova secondo";
+		
+		test[0]=test2;
+		//test[1]="prova 1";
+		//test[2]="prova 2";
+		
+		//mappa.put("1010", test);
+		
+		
+		
+		datastore.save(mappa.entrySet());
 		
 		}
 		catch(Exception e) {
@@ -72,9 +92,10 @@ public class PersistenceMongodb {
 	
 	
 	
-	public static void salvaDocumento() {
+	public static void salvaDocumento() throws IOException {
 		
-		for (int i= 0; i<100000;i++) {
+		
+	for (int i= 0; i<100000;i++) {
 		
 			Libro libro = new Libro();
 			libro.setIsbn("000"+i);
@@ -85,6 +106,12 @@ public class PersistenceMongodb {
 			datastore.save(libro);
 			System.out.println(i);
 		}
+	
+	
+	
+	
+	
+	
 		
 	
 	}
