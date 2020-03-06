@@ -3,8 +3,9 @@ package pojos;
 import java.io.Serializable;
 import java.util.List;
 
-import xyz.morphia.annotations.Entity;
-import xyz.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
 
 
 

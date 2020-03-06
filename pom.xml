@@ -26,13 +26,13 @@
 
  
  
- <!-- https://mvnrepository.com/artifact/xyz.morphia.morphia/core -->
+<!-- https://mvnrepository.com/artifact/org.mongodb.morphia/morphia -->
 <dependency>
-    <groupId>xyz.morphia.morphia</groupId>
-    <artifactId>core</artifactId>
-    <version>1.4.0</version>
+    <groupId>org.mongodb.morphia</groupId>
+    <artifactId>morphia</artifactId>
+    <version>1.3.2</version>
 </dependency>
- 
+
  		<dependency>
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>

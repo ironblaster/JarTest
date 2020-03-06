@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.Query;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -14,9 +17,6 @@ import com.mongodb.MongoClientURI;
 
 import pojos.Autore;
 import pojos.Libro;
-import xyz.morphia.Datastore;
-import xyz.morphia.Morphia;
-import xyz.morphia.query.Query;
 
 public class PersistenceMongodb {
 	
