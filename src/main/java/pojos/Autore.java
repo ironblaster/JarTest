@@ -3,8 +3,10 @@ package pojos;
 import java.io.Serializable;
 import java.util.List;
 
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
+import xyz.morphia.annotations.Entity;
+import xyz.morphia.annotations.Id;
+
+
 
 @Entity
 public class Autore implements Serializable{
