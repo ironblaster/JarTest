@@ -2,18 +2,19 @@ package persistence;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 
-import com.mongodb.InsertOptions;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+
+import pojos.Autore;
 import pojos.Libro;
 
 public class PersistenceMongodb {
@@ -30,6 +31,7 @@ public class PersistenceMongodb {
 		morphia.mapPackage("com.baeldung.morphia");
 		client = new MongoClient(new MongoClientURI(url));
 		datastore = morphia.createDatastore(client,db);
+		datastore.ensureIndexes();
 	}
 	
 	
@@ -40,27 +42,33 @@ public class PersistenceMongodb {
 	
 	public static void main (String[] args) {
 		
-		try {
+	try { 
+		
+
+		salvaDocumento();
+			
+			
+		
+			
+			
 		//cancellatutti();
 		//salvaDocumento();
 		
-		Map <String,String[]> mappa = new HashMap<>();
+		/*Map <String,String> mappa = new HashMap<>();
 		
 		
-		String[][] test= new String[3][1];
 	
-		String[] test2 = new String[2];
-		test2[0]="prova secondo";
-		
-		test[0]=test2;
 		//test[1]="prova 1";
 		//test[2]="prova 2";
 		
-		//mappa.put("1010", test);
+		mappa.put("1010", "test");
+		mappa.put("1012", "te5st");333333333                                         
+		mappa.put("104510", "tes46t");
 		
 		
+		DBCollection test = datastore.getCollection(Map.class);
 		
-		datastore.save(mappa.entrySet());
+		datastore.save(new BasicDBObject(mappa));*/
 		
 		}
 		catch(Exception e) {
@@ -83,8 +91,11 @@ public class PersistenceMongodb {
 	
 	
 	public static void PrendiDocumento() {
-		List<Libro> libri = datastore.createQuery(Libro.class).field("titolo").contains("test").asList();
-				 
+		List<Libro> libri = datastore.createQuery(Libro.class).field("titolo").contains("principale").asList();
+				
+		
+	
+		
 		
 		int i =0;
 	}
@@ -94,31 +105,33 @@ public class PersistenceMongodb {
 	
 	public static void salvaDocumento() throws IOException {
 		
+		Autore autore = new Autore();
+		autore.setNome("salvatore");
+		autore.setCognome("esposito");
 		
-	for (int i= 0; i<100000;i++) {
+		
 		
 			Libro libro = new Libro();
-			libro.setIsbn("000"+i);
-			libro.setAutore("ironblaster"+i);
-			libro.setTitolo("test titolo libro"+i);
-			libro.setCosto(12.50+i);
+			libro.setIsbn("000");
+			libro.setAutore(autore);
+			libro.setTitolo("test titolo libro principale");
+			libro.setCosto(12.50);
+			
+			Libro secondo = new Libro();
+			secondo.setIsbn("001");
+			secondo.setAutore(autore);
+			secondo.setTitolo("test titolo secondo libro");
+			secondo.setCosto(10.30);
+			
+			libro.addCorrelato(secondo);
+			
 			
 			datastore.save(libro);
-			System.out.println(i);
-		}
-	
-	
-	
-	
-	
-	
+			datastore.save(secondo);
+		
 		
 	
 	}
-	
-	
-	
-	
-	
+
 	
 }

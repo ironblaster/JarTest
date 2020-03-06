@@ -1,10 +1,14 @@
 package pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.annotations.Reference;
 
 
 @Entity("libro")
@@ -16,9 +20,12 @@ public class Libro implements Serializable {
 	@Id
 	private String isbn;
 	private String titolo;
-	private String autore;
+	@Embedded
+	private Autore autore;
 	@Property("prezzo")
 	private double costo;
+	@Reference
+	private List<Libro> correlati= new ArrayList<>();
 	
 	
 	
@@ -32,9 +39,17 @@ public class Libro implements Serializable {
 	}*/
 	
 	
+	public void addCorrelato(Libro libro) {
+		correlati.add(libro);
+	}
+	
 	public String getIsbn() {
 		return isbn;
 	}
+	public List<Libro> getCorrelati() {
+		return correlati;
+	}
+
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
@@ -44,10 +59,10 @@ public class Libro implements Serializable {
 	public void setTitolo(String titolo) {
 		this.titolo = titolo;
 	}
-	public String getAutore() {
+	public Autore getAutore() {
 		return autore;
 	}
-	public void setAutore(String autore) {
+	public void setAutore(Autore autore) {
 		this.autore = autore;
 	}
 	public double getCosto() {
